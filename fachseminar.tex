@@ -10,17 +10,28 @@
 \setlength{\parskip}{0.75em}
 \setlength{\parindent}{0em}
 
+\bibdata{bibliothek}
+
 \begin{document}
 \author{Markus Tacker}
-\title{Konzepte und Standards zur domänenübergreifenden Integration von Webanwendungen}
+\title{Konzepte und Standards zur domänenübergreifenden Integration von komplexen Webanwendungen}
 \maketitle
 \section*{Abstract}
-Anbieter webbasierter Anwendungen stehen vor dem Problem der isolierten Existenz. In der Regel erfolgt die Anbindung zwischen Anwendungen über Schnittstellen, die den Dienst in Form einer sogenannten \emph{Black Box} veröffentlichen, d.h. dass der Dienst durch Übergabe eines Datums aufgerufen wird, dieser entsprechende des Aufrufes reagiert und ggfs. ein modifiziertes Datum zurück liefert. Beispiele hierfür sind z.B. Wetter- oder Faxdienste. Diese Arten von Services lassen sich über öffentliche Verzeichnisse finden.
+Ein Teil des neueren Enwticklung des Internets zum \emph{Web 2.0} basiert auf der Idee, dass Anbieter von Internetdiensten ihre Informationen und Funktionen Hilfe von Schnittstellen Dritten zur Verfügung stellen.
 
-Soll eine Integration der Dienste darüber hinaus erfolgen, muss zwischen den Parteien ein gemeinsames Verständnis über die verarbeiteten Entitäte geschaffen werden. Dies erfolgt in der Regel mit der individuellen Anbindung der Dienste. \emph{ontologies as a
-neutral description}
+Diese sind auf der Protokollebene standardisiert (z.B. SOAP), müssen jedoch vom Verwender immer individuell verwendeten Dienst implementiert werden, wodurch sich der Verwender fest an einen Dienst bindet.
 
-Welche Konzepte aber ermöglichen die dynamische Bindung von komplexen Webanwendungen? Gibt es hierfür Ansätze und Lösungen?
+Für sogenannte \emph{Blackbox-Dienste} ist das kein Problem. Diese Dienste verarbeiten lediglich einfache Daten, d.h. dass der Dienst durch Übergabe eines Datums aufgerufen wird, dieser entsprechende des Aufrufes reagiert und ggfs. ein modifiziertes Datum zurück liefert. Beispiele hierfür sind z.B. Wetter- oder Faxdienste. 
+
+Anbieter webbasierter Anwendungen stehen jedoch vor dem Problem, dass komplexe Workflows abgebildet werden und diese auch persistent in der Anwendung verbleiben. Beispiele hierfür sind z.B. Werkzeuge zur projektspezifischen Zeiterfassung. Auch hier bietet sich die Möglichkeit der Anbindung mittels Schnittstellen, jedoch mit deutlich gesteigertem Aufwand, da zwischen beiden Parteien das Verständnis über die verarbeiteten Entitäten vermittelt werden muss. 
+
+
+In dieser Seminararbeit möchte ich versiuchen die Frage zu beantworten, welche Konzepte die dynamische Bindung von komplexen Webanwendungen ermöglichen, die für ein lebendiges Öko-System von entscheidender Bedeutung ist. Gibt es hierfür Ansätze und Lösungen?
+\section*{Vorläufige Literaturliste}
+\begin{itemize}
+\item Next Generation Semantic Web Applications \cite{Motta06nextgeneration}
+\item OIL: An Ontology Infrastructure for the Semantic Web \cite{oil}
+\end{itemize}
 \bibliography{bibliothek}
 \bibliographystyle{plain} 
 \end{document}
