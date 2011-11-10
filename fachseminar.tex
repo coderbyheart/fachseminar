@@ -1,4 +1,4 @@
-\documentclass[12pt,a4paper]{article}
+\documentclass[10pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[german]{babel}
 \usepackage[T1]{fontenc}
@@ -6,61 +6,89 @@
 
 \usepackage[paper=a4paper,width=14cm,left=35mm,height=22cm]{geometry}
 \usepackage{setspace}
+\usepackage{acronym}
+\usepackage{charter}
 \linespread{1.15}
-\setlength{\parskip}{0.75em}
+\setlength{\parskip}{0.25em}
 \setlength{\parindent}{0em}
 
-\bibdata{bibliothek}
+\bibliographystyle{apalike} 
 
 \begin{document}
 \author{Markus Tacker}
 \title{Konzepte und Standards zur domänenübergreifenden Integration von komplexen Webanwendungen}
 \maketitle
-\section*{Abstract}
-Ein Teil des neueren Entwicklung des Internets zum \emph{Web 2.0} basiert auf der Idee, dass Anbieter von Internetdiensten ihre Informationen und Funktionen Hilfe von Schnittstellen Dritten zur Verfügung stellen.\cite{baresitalk2007}
+Ein Teil der neueren Entwicklung des Internets zum \emph{Web 2.0} basiert auf der Idee, dass Informationen und Funktionen von Software mit Hilfe von \emph{Webservices} verwendet werden können. \cite{hn-web20}
 
-Diese sind auf der Protokollebene standardisiert, müssen jedoch vom Verwender immer individuell verwendeten Dienst implementiert werden, wodurch sich der Verwender fest an einen Dienst bindet.
+Die Kommunikation mit Webservices ist zwar auf Protokollebene standardisiert (siehe \ref{l:wsprot}), muss jedoch vom Konsumenten immer individuell entsprechend dem Domänenmodell des Anbieters implementiert werden, wodurch eine feste Bindung an den Anbieter entsteht.
 
-Für sogenannte \emph{Blackbox-Dienste} ist das kein Problem. Diese Dienste verarbeiten lediglich einfache Daten, d.h. dass der Dienst durch Übergabe eines Datums aufgerufen wird, dieser entsprechende des Aufrufes reagiert und ggfs. ein modifiziertes Datum zurück liefert. Beispiele hierfür sind z.B. Wetter- oder Faxdienste. 
+Für sogenannte \emph{Blackbox-Webservices}~(siehe~\ref{l:blackbox}) ist das kein Problem --- diese zustandslose Dienste verarbeiten lediglich einfache Daten, d.h. dass der Dienst durch Übergabe eines Datums aufgerufen wird, dieser entsprechend des Aufrufs reagiert und ein Ergebnis zurück liefert.
 
-Anbieter webbasierter Anwendungen stehen jedoch vor dem Problem, dass komplexe Workflows abgebildet werden und diese auch persistent in der Anwendung verbleiben. Beispiele hierfür sind z.B. Werkzeuge zur projektspezifischen Zeiterfassung. Auch hier bietet sich die Möglichkeit der Anbindung mittels Schnittstellen, jedoch mit deutlich gesteigertem Aufwand, da zwischen beiden Parteien das Verständnis über die verarbeiteten Entitäten vermittelt werden muss. 
+Anbieter \emph{webbasierter Anwendungen}~(siehe~\ref{l:webanw}) stehen jedoch vor dem Problem, dass auf Seiten des Anbieters komplexe Arbeitsabläufe abgebildet werden und diese auch persistent innerhalb des Dienstes verbleiben, d.h. sie sind zustandsbehaftet. Auch hier bietet sich die Möglichkeit der Anbindung mittels Schnittstellen, jedoch mit deutlich gesteigertem Aufwand, da zwischen beiden Parteien das Verständnis über die verarbeiteten Entitäten vermittelt werden muss. 
 
-\begin{quote}
-The idea of the Web services was born from the need to
-provide a simple way of distributing and reusing a distant
-application. Thus, the first generation of standards supporting
-this technology was developed to meet primarily these aims.
-The first standards do not cover certain aspects related to the
-discovery, the composition and the selection of the services.\cite{ei-sawsdl}
-\end{quote}
+Nach \cite[Seite 653]{ei-sawsdl} sind etablierte Standards für Webservices der ersten Generation wie \acs{SOAP} und \acs{UDDI} primär unter dem Aspekt entwickelt worden, einen einfachen Weg zur Verteilung und Wiederverwertung von Webservices zu etablieren --- ihnen fehlt also eine Standardisierung für das Auffinden, Zusammenstellen und Auswählen von Diensten um eine \emph{lose Kopplung}~(Siehe~\ref{l:loosec}) zu ermöglichen. Für ein lebendiges Web-Öko-System ist die lose Kopplung jedoch von entscheidender Bedeutung --- im Idealfall lassen sich Dienste so anbinden, dass sie jederzeit und ohne Aufwand ausgetauscht werden könen und sogar die parallele Verwendung mehrere Dienste der gleichen Art ermöglicht wird.
 
-In dieser Seminararbeit möchte ich versuchen die Frage zu beantworten, welche Konzepte die dynamische Bindung von komplexen Webanwendungen ermöglichen, die für ein lebendiges Öko-System von entscheidender Bedeutung ist. Gibt es hierfür Ansätze und Lösungen?
-\section*{Vorläufige Literaturliste}
-\subsection*{zu Webservices allgemein}
+\textbf{In dieser Seminararbeit möchte ich versuchen die Frage zu beantworten, welche Konzepte für die dynamische Bindung von komplexen Webanwendungen existieren.}
+
+\pagebreak
+
+\tableofcontents
+
+\pagebreak
+
+\section{Einleitung}
+
+\subsection{Problemstellung}
 \begin{itemize}
-\item Web Site Evolution \cite{baresitalk2007}
-\item Next Generation Semantic Web Applications \cite{Motta06nextgeneration}
+\item "Whitebox"-Anbindung
+\item Bisher: 1:1-Verbindung (Beispiel Mite)
+\item Problem Ontologie. Projekt = Was?
 \end{itemize}
-
-\subsection*{zu Semantik}
+\subsection{Beispiele}
 \begin{itemize}
-\item OIL: An Ontology Infrastructure for the Semantic Web \cite{oil}
-\item On communication and coordination issues of Semantic Web Services \cite{WSMO}
-\item Semantic SOA – Automatisierung und Interoperabilität in Service-Orientierten Architekturen \cite{semsoa}
-\item SOA4All, Enabling the SOA Revolution on a World Wide Scale \cite{SOA4ALL}
-\item The Role of Ontologies in Virtual Engineering \cite{ontologies}
+\item Mite
+\item E-Mail-Backup
 \end{itemize}
+\subsection{Definition}
+\subsection{Webservice-Protokolle}
+\label{l:wsprot}
+\subsection{Blackbox-Dienste}
+\label{l:blackbox}
+Für die Nutzung eines Dienstes reicht die Kenntnis der Schnittstellen aus. Ein tieferes Verständnis
+der internen Vorgänge wird nicht benötigt, bzw. soll bewusst verborgen werden. \cite{hhxmlwssoa}
 
-\subsection*{zu Lösungsansätzen}
-\begin{itemize}
-\item WSMO-Lite: Lightweight Semantic Descriptions for Services on the Web \cite{WSMOLITE}
-\item Sharing service semantics using SOAP-based and REST Web services \cite{shi1}
-\item SAWSDL: Semantic Annotations for WSDL and XML Schema \cite{ky-sawsdl}
-\item A metamodel of WSDL Web services using SAWSDL semantic annotations \emph{ei-sawsdl}
-\item Semantic Annotations for WSDL and XML Schema. Recommendation W3C, 2007. \cite{w3c-sawsdl}
-\item An Ontology-Based Resource-Oriented Information Supported Framework towards RESTful Service Generation and Invocation \cite{zg-ontorest}
-\item SAPS: Semantic AtomPub-Based Services \cite{lr-saps}
-\end{itemize}
+Beispiele hierfür ist z.B. ein Webservice, der Wetterdaten für eine PLZ liefert. Hier gibt der Konsument die PLZ eines Ortes in Deutschland ein und erhält in der Antwort eine Temperatur. Die genauen technischen Abläufe, wie der Webservice aus der PLZ eine Temperatur ermittelt bleiben für den Konsumenten verborgen und sind für diesen auch irrelevant.
+
+Diese Arten von Diensten sind zustandslos, d.h. sie behandlen jede Anfrage unabhängig von einer vorherigen.
+\subsection{Webbasierte Anwendungen, Whitebox-Dienste}
+\label{l:webanw}
+Nicht zustandslos.
+
+Beispiele hierfür sind z.B. Werkzeuge zur projektspezifischen Zeiterfassung. 
+\paragraph{Loose Kopplung}
+\label{l:loosec}
+
+\section{Semantische Webservices}
+
+\subsection{Problemstellung}
+
+\subsection{...}
+
+\subsection{Beispiele}
+
+\paragraph{Webintents}
+
+\paragraph{OpenSearch}
+
+\section{Fazit und Ausblick}
+
+\pagebreak
+
+\subsection*{Abkürzungsverzeichnis}
+\begin{acronym}
+\acro{SOAP}{Simple Object Access Protocol}
+\acro{UDDI}{Universal Description, Discovery and Integration}
+\end{acronym}
+
 \bibliography{bibliothek}
-\bibliographystyle{plain} 
 \end{document}
