@@ -12,17 +12,41 @@
 \setlength{\parskip}{0.25em}
 \setlength{\parindent}{0em}
 
-\bibliographystyle{apalike} 
+\bibliographystyle{plain} 
 
 \bibdata{bibliothek}
+
+% Abkürzungen werden hier definiert, da es kein "öffentliches" Abkürzungsverzeichnis gibt
+
+\newacro{SOAP}[SOAP]{Simple Object Access Protocol}
+\newacro{UDDI}[UDDI]{Universal Description, Discovery and Integration}
 
 \begin{document}
 \author{Markus Tacker}
 \title{Konzepte und Standards zur domänenübergreifenden Integration von komplexen Webanwendungen}
 \maketitle
-\includegraphics[width=14cm]{skizze.png}
-\pagebreak
+
 \section*{Abstract}
+
+Diese Seminar ist unterteilt in acht Abschnitte. Im ersten Abschnitt~(\ref{l:einleitung}) gehe ich auf die Problemstellung im Detail ein und liefere mehrere Beispiele die ich Verlauf der Arbeit immer wieder heran ziehen werde. 
+
+Im zweiten Abschnitt erläutere ich die zu Grunde liegenden Begrifflichkeiten. 
+
+Im dritten Abschnitt gehe ich auf die Grundlagen semantischer Webservices ein~(\ref{l:sem-web-ser}).
+
+Im vierten Abschnitt beschreibe ich die gefunden Lösungsansätze~(\ref{l:loesungen}) zu Semantischen~Webservices, die ich im fünften Abschnitt auf ihre Verwendbarkeit für webbasierter Anwendungen~\ref{l:verwendung} analysiere und gebe im sechsten Abschnitt einige reale Beispiele.
+
+Im siebten Abschnitt findet sich das Fazit~(\ref{l:fazit}) und ein Ausblick~(\ref{l:ausblick}) auf zukünftige Auswirkungen und Entwicklungen.
+
+\textbf{In dieser Seminararbeit möchte ich versuchen die Frage zu beantworten, welche Konzepte für die dynamische Bindung von komplexen Webanwendungen existieren.}
+
+
+\pagebreak
+
+\tableofcontents
+
+\section{Einleitung}
+\label{l:einleitung}
 
 Ein Teil der neueren Entwicklung des Internets zum \emph{Web 2.0} basiert auf der Idee, dass Informationen und Funktionen von Software mit Hilfe von \emph{Webservices} verwendet werden können. \cite{hn-web20}
 
@@ -32,31 +56,60 @@ Für sogenannte \emph{Blackbox-Webservices} ist das kein Problem --- diese zusta
 
 Anbieter \emph{webbasierter Anwendungen} stehen jedoch vor dem Problem, dass auf Seiten des Anbieters komplexe Arbeitsabläufe abgebildet werden und diese auch persistent innerhalb des Dienstes verbleiben, d.h. sie sind zustandsbehaftet. Auch hier bietet sich die Möglichkeit der Anbindung mittels Schnittstellen, jedoch mit deutlich gesteigertem Aufwand, da zwischen beiden Parteien das Verständnis über die verarbeiteten Entitäten vermittelt werden muss. 
 
-Nach \cite[Seite 653]{ei-sawsdl} sind etablierte Standards für Webservices der ersten Generation wie \acs{SOAP} und \acs{UDDI} primär unter dem Aspekt entwickelt worden, einen einfachen Weg zur Verteilung und Wiederverwertung von Webservices zu etablieren --- ihnen fehlt also eine Standardisierung für das Auffinden, Zusammenstellen und Auswählen von Diensten um eine \emph{lose Kopplung} zu ermöglichen. Für ein lebendiges Web-Öko-System ist die lose Kopplung jedoch von entscheidender Bedeutung --- im Idealfall lassen sich Dienste so anbinden, dass sie jederzeit und ohne Aufwand ausgetauscht werden können und sogar die parallele Verwendung mehrere Dienste der gleichen Art ermöglicht wird.
+Nach \cite[Seite 653]{ei-sawsdl} sind etablierte Standards für Webservices der ersten Generation wie \ac{SOAP} und \ac{UDDI} primär unter dem Aspekt entwickelt worden, einen einfachen Weg zur Verteilung und Wiederverwertung von Webservices zu etablieren --- ihnen fehlt also eine Standardisierung für das Auffinden, Zusammenstellen und Auswählen von Diensten um eine \emph{lose Kopplung} zu ermöglichen. Für ein lebendiges Web-Öko-System ist die lose Kopplung jedoch von entscheidender Bedeutung --- im Idealfall lassen sich Dienste so anbinden, dass sie jederzeit und ohne Aufwand ausgetauscht werden können und sogar die parallele Verwendung mehrere Dienste der gleichen Art ermöglicht wird.
 
-\textbf{In dieser Seminararbeit möchte ich versuchen die Frage zu beantworten, welche Konzepte für die dynamische Bindung von komplexen Webanwendungen existieren.}
+% Infos zu Blackbox-WS einfließen lassen
 
-\subsection*{Aufbau dieser Seminararbeit}
+Für die Nutzung eines Dienstes reicht die Kenntnis der Schnittstellen aus. Ein tieferes Verständnis
+der internen Vorgänge wird nicht benötigt, bzw. soll bewusst verborgen werden. \cite{hhxmlwssoa}
 
-Diese Seminar ist unterteilt in acht Abschnitte. Im ersten Abschnitt~(\ref{l:einleitung}) gehe ich auf die Problemstellung~\ref{l:problem} im Detail ein und liefere mehrere Beispiele~(\ref{l:beispiele}) die ich Verlauf der Arbeit immer wieder heran ziehen werde. 
+Beispiele hierfür ist z.B. ein Webservice, der Wetterdaten für eine PLZ liefert. Hier gibt der Konsument die PLZ eines Ortes in Deutschland ein und erhält in der Antwort eine Temperatur. Die genauen technischen Abläufe, wie der Webservice aus der PLZ eine Temperatur ermittelt bleiben für den Konsumenten verborgen und sind für diesen auch irrelevant.
 
-Im zweiten Abschnitt erläutere ich die zu Grunde liegenden Begrifflichkeiten~(\ref{l:definition}). 
+Diese Arten von Diensten sind zustandslos, d.h. sie behandlen jede Anfrage unabhängig von einer vorherigen.
 
-Im dritten Abschnitt gehe ich auf die Grundlagen semantischer Webservices ein~(\ref{l:sem-web-ser}).
+% Infos zu Whitebox-WS einfließen lassen
+% Webbasierte Anwendungen, Whitebox-Dienste
 
-Im vierten Abschnitt beschreibe ich die gefunden Lösungsansätze~(\ref{l:loesungen}) zu Semantischen~Webservices, die ich im fünften Abschnitt auf ihre Verwendbarkeit für webbasierter Anwendungen~\ref{l:verwendung} analysiere und gebe im sechsten Abschnitt einige reale Beispiele~(\ref{l:sem-web-ser-beispiele}).
+Nicht zustandslos.
 
-Im siebten Abschnitt findet sich das Fazit~(\ref{l:fazit}) und ein Ausblick~(\ref{l:ausblick}) auf zukünftige Auswirkungen und Entwicklungen.
+Beispiele hierfür sind z.B. Werkzeuge zur projektspezifischen Zeiterfassung. 
 
-\pagebreak
+% Beispiele einfließen lassen
 
-\tableofcontents
+\begin{itemize}
+\item Mite
+\item E-Mail-Backup
+\end{itemize}
 
-\pagebreak
-\section{Einleitung}
-\label{l:einleitung}
-\subsection{Problemstellung}
-\label{l:problem}
+% Hinweis auf Ökonomische Aspekte, Ultra Large Scale Systems
+
+Eine Möglichkeit die Überlebensfähigkeit von digitalen Ökosystemen sicherzustellen
+ist es, Redundanz einzuführen und zwar Redundanz auf allen Ebenen, angefangen
+von der Hardware über die Betriebssysteme bis hin zur Software und den
+eingesetzten Services. Ein solch hohes Maß an Redundanz würde jedoch immense
+Investitionen verschlingen, von daher ist es günstiger, mit einer minimalen Redundanz
+zu leben und die Qualitäten der gelieferten Services zu reduzieren. Für die
+Qualitätsreduktion ist jedoch wichtig zu wissen, was an Services vom System noch
+in welcher Qualität zur Verfügung steht und was nicht. Die "überlebenden" Services
+werden neu komponiert und den Consumern zur Verfügung gestellt. Diese Form der
+ad-hoc Komposition bedingt, dass Servicekomposition (s. Abschn. 2.7.3) sich neben
+den fachlichen Interfaces und den "bestmöglichen" Qualitäten auch an Notfallpolicies
+orientieren kann. \cite{mkulss}
+
+\section{Semantische (Web-)services}
+\label{l:sem-web-ser}
+\subsection{Einführung}
+
+Anwendungen in Unternehmen werden heute im Gegensatz zu den isolierten Einzellösungen
+der Vergangenheitmeist als Aggregate weitgehend eigenständiger Softwarekomponenten realisiert.
+Dienstorientierte Architekturen sind die Basis für die Erweiterung dieser Aggregate um
+extern erbrachte Dienstkomponenten, die bevorzugt über das Internet als Web Services eingebunden
+werden. Damit wird es beispielweise möglich, betriebswirtschaftliche Anwendungen zu
+Ablaufketten zu verbinden, externe Informationsdienste in die eigene Planungssoftware einzubeziehen
+oder ein netzweites Single-Sign-On zu nutzen. Solche dienstorientierten Architekturen
+finden heute große Aufmerksamkeit, weil sich die Anwender dadurch Flexibilität, Interoperabilität,
+Anpassungsfähigkeit, Wiederverwendbarkeit, Herstellerunabhängigkeit und letztendlich
+Kostenersparnisse für die Entwicklung und den Betrieb der Geschäftsanwendungen erhoffen. \cite{addo}
 
 Web services generalize the idea of the Web beyond the exchange of simple Web pages in order to enable the provision of a broad range of different services. By composing Web services, cross-organizational and collaborative business processes can be realized in a highly dynamic and flexible way, which is particularly important if services have to be automatically procured at runtime. However, achieving a higher degree of automation is obstructed by the informal nature of legal, contractual and organizational regulations, the numerous and complex service descriptions including manifold customization possibilitiesm and the open and heterogeneous nature of the Web service market.
 
@@ -85,52 +138,6 @@ to the Web of services. However, the success of Web
 services still depends on resolving three fundamental challenges,
 namely search, integration and mediation. \cite{WSMOLITE}
 
-\begin{itemize}
-\item "Whitebox"-Anbindung
-\item Bisher: 1:1-Verbindung (Beispiel Mite)
-\item Problem Ontologie. Projekt = Was?
-\end{itemize}
-\subsection{Beispiele}
-\label{l:beispiele}
-\begin{itemize}
-\item Mite
-\item E-Mail-Backup
-\end{itemize}
-\section{Definition}
-\label{l:definition}
-\subsection{Webservice}
-Anwendungen in Unternehmen werden heute im Gegensatz zu den isolierten Einzellösungen
-der Vergangenheitmeist als Aggregate weitgehend eigenständiger Softwarekomponenten realisiert.
-Dienstorientierte Architekturen sind die Basis für die Erweiterung dieser Aggregate um
-extern erbrachte Dienstkomponenten, die bevorzugt über das Internet als Web Services eingebunden
-werden. Damit wird es beispielweise möglich, betriebswirtschaftliche Anwendungen zu
-Ablaufketten zu verbinden, externe Informationsdienste in die eigene Planungssoftware einzubeziehen
-oder ein netzweites Single-Sign-On zu nutzen. Solche dienstorientierten Architekturen
-finden heute große Aufmerksamkeit, weil sich die Anwender dadurch Flexibilität, Interoperabilität,
-Anpassungsfähigkeit, Wiederverwendbarkeit, Herstellerunabhängigkeit und letztendlich
-Kostenersparnisse für die Entwicklung und den Betrieb der Geschäftsanwendungen erhoffen. \cite{addo}
-\subsection{Webservice-Protokolle}
-\label{l:wsprot}
-\subsection{Blackbox-Dienste}
-\label{l:blackbox}
-Für die Nutzung eines Dienstes reicht die Kenntnis der Schnittstellen aus. Ein tieferes Verständnis
-der internen Vorgänge wird nicht benötigt, bzw. soll bewusst verborgen werden. \cite{hhxmlwssoa}
-
-Beispiele hierfür ist z.B. ein Webservice, der Wetterdaten für eine PLZ liefert. Hier gibt der Konsument die PLZ eines Ortes in Deutschland ein und erhält in der Antwort eine Temperatur. Die genauen technischen Abläufe, wie der Webservice aus der PLZ eine Temperatur ermittelt bleiben für den Konsumenten verborgen und sind für diesen auch irrelevant.
-
-Diese Arten von Diensten sind zustandslos, d.h. sie behandlen jede Anfrage unabhängig von einer vorherigen.
-\subsection{Webbasierte Anwendungen, Whitebox-Dienste}
-\label{l:webanw}
-Nicht zustandslos.
-
-Beispiele hierfür sind z.B. Werkzeuge zur projektspezifischen Zeiterfassung. 
-\subsection{Loose Kopplung}
-\label{l:loosec}
-
-\section{Semantische (Web-)services}
-\label{l:sem-web-ser}
-\subsection{Einführung}
-
 Was bleibt ist das Problem der Semantik der auszutauschenden Daten. Deswegen denke ich: Öffentliche Service-Verzeichnisse werden sich im Business-Alltag mangels semantischer Standards vorerst nicht durchsetzen. Viel wahrscheinlicher ist zunächst die Migration bestehender Unternehmensverbände (z.B. Zulieferer - Hersteller, etc.) auf eine Service-orientierte Plattform mit einem gemeinsamen privaten Service-Verzeichnis. Dieses wäre ein weiterer Schritt in Richtung der Vision eines Semantic Web Services bzw. dem Semantic Web.  \cite{hhxmlwssoa} 
 
 Such an approach means service providers handle serialization
@@ -150,7 +157,7 @@ let most users exploit distributed computing’s power without
 writing a computer program. \cite{shi1}
 
 \begin{figure}
-\includegraphics[width=14cm]{Extended-Web-Service-Specification-Stack.pdf}
+\includegraphics[width=14cm]{media/Extended-Web-Service-Specification-Stack.pdf}
 \caption{Extended Web Service Specification Stack, \cite{WSMOLITE}}
 \end{figure}
 
@@ -165,21 +172,6 @@ oder des verwendeten Vokabulars. Treffen allerdings Sender und Empfänger in
 einem weniger stark reglementierten oder unterschiedliche interpretierbarem
 Kontext aufeinander, so müssen zuerst das unterschiedlich verwendete Vokabular
 und die dahinterstehenden Bedeutungen abgeglichen werden. [und weiter...] \cite{sgthesis}
-
-\subsection{Ultra Large Scale Systems}
-
-Eine Möglichkeit die Überlebensfähigkeit von digitalen Ökosystemen sicherzustellen
-ist es, Redundanz einzuführen und zwar Redundanz auf allen Ebenen, angefangen
-von der Hardware über die Betriebssysteme bis hin zur Software und den
-eingesetzten Services. Ein solch hohes Maß an Redundanz würde jedoch immense
-Investitionen verschlingen, von daher ist es günstiger, mit einer minimalen Redundanz
-zu leben und die Qualitäten der gelieferten Services zu reduzieren. Für die
-Qualitätsreduktion ist jedoch wichtig zu wissen, was an Services vom System noch
-in welcher Qualität zur Verfügung steht und was nicht. Die "überlebenden" Services
-werden neu komponiert und den Consumern zur Verfügung gestellt. Diese Form der
-ad-hoc Komposition bedingt, dass Servicekomposition (s. Abschn. 2.7.3) sich neben
-den fachlichen Interfaces und den "bestmöglichen" Qualitäten auch an Notfallpolicies
-orientieren kann. \cite{mkulss}
 
 \section{Lösungsansätze}
 \label{l:loesungen}
@@ -244,24 +236,20 @@ integration of resources. \cite{zg-ontorest}
 
 \section{Verwendbarkeit für webbasierter Anwendungen}
 \label{l:verwendung}
-\section{Beispiele}
-\label{l:sem-web-ser-beispiele}
-\subsection{Webintents}
 
-\subsection{OpenSearch}
+% Literatur finden, die die Anwendung der o.g. Techniken beschreibt
+% Dann können auch die Beispiele entfallen
+
+\begin{itemize}
+\item Webintents
+\item OpenSearch
+\end{itemize}
 
 \section{Fazit}
 \label{l:fazit}
 \section{Ausblick}
 \label{l:ausblick}
 \pagebreak
-
-\section*{Anhang}
-\subsection*{Abkürzungsverzeichnis}
-\begin{acronym}
-\acro{SOAP}{Simple Object Access Protocol}
-\acro{UDDI}{Universal Description, Discovery and Integration}
-\end{acronym}
 
 \bibliography{bibliothek}
 \end{document}
