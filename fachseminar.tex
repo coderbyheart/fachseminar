@@ -1,3 +1,6 @@
+%
+% Fachseminararbeit
+% H
 \documentclass[10pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[german]{babel}
@@ -20,26 +23,63 @@
 
 \newacro{SOAP}[SOAP]{Simple Object Access Protocol}
 \newacro{UDDI}[UDDI]{Universal Description, Discovery and Integration}
+\newacro{ORISF}[ORISF]{Ontology-based Resourceoriented Information Supported Framework}
+\newacro{SAWSDL}[SAWSDL]{Semantic Annotations for WSDL}
+\newacro{SOA}[SOA]{Service Oriented Architecture}
+\newacro{API}[API]{Application Programming Interface}
 
 \begin{document}
 \author{Markus Tacker}
 \title{Konzepte und Standards zur domänenübergreifenden Integration von komplexen Webanwendungen}
-\maketitle
+
+\begin{center}
+
+\begin{small}Fachseminararbeit · Wintersemester 2011/2012\\Fachbereich Medieninformatik · Hochschule RheinMain\end{small}
+
+\bigskip
+
+\begin{huge}Konzepte und Standards 
+\medskip
+zur domänenübergreifenden Integration
+\medskip
+von komplexen Webanwendungen\end{huge}
+
+\bigskip
+
+\begin{large}Markus Tacker\end{large}
+
+\begin{small}\texttt{https://github.com/tacker/fachseminar/}\end{small}
+
+\end{center}
 
 \section*{Abstract}
 
-Diese Seminar ist unterteilt in acht Abschnitte. Im ersten Abschnitt~(\ref{l:einleitung}) gehe ich auf die Problemstellung im Detail ein und liefere mehrere Beispiele die ich Verlauf der Arbeit immer wieder heran ziehen werde. 
+Die Integration von Dienstangeboten über das Internet als sogenannte 
+\emph{Webservices} ist heutzutage kein Problem mehr. Existierende Standards
+wie z.B. \emph{\ac{SOAP}} und \emph{\ac{UDDI}} liefern hierfür bewährte Werkzeuge.
 
-Im zweiten Abschnitt erläutere ich die zu Grunde liegenden Begrifflichkeiten. 
+Diese Standards der ersten Generation wurden jedoch im Hinblick auf 
+die Anbindung zustandsloser Webservices entwickelt~\cite[S. 653]{ei-sawsdl} 
+und bilden die Verbindung zwischen zwei Diensten immer individuell ab.
 
-Im dritten Abschnitt gehe ich auf die Grundlagen semantischer Webservices ein~(\ref{l:sem-web-ser}).
+Hieraus ergibt sich jedoch ein Problem bei der Anbindung komplexer 
+Webanwendungen: werden diese mit Hilfe der genannten Techniken 
+angebunden, wird das zur Vermittlung zwischen den jeweiligen Domänenkonzepten
+nötige Wissen in der Implementierung der Integration \emph{hart kodiert} --- 
+andere oder zusätzliche Dienste gleicher Art können deswegen nicht ohne erneuten
+Aufwand angebunden werden.
 
-Im vierten Abschnitt beschreibe ich die gefunden Lösungsansätze~(\ref{l:loesungen}) zu Semantischen~Webservices, die ich im fünften Abschnitt auf ihre Verwendbarkeit für webbasierter Anwendungen~\ref{l:verwendung} analysiere und gebe im sechsten Abschnitt einige reale Beispiele.
+Die Suche nach Konzepten für die dynamische Bindung von komplexen Webanwendungen
+ist die Motivation für diese Fachseminararbeit, in der ich in Abschnitt~\ref{l:sem-web-ser} 
+die Möglichkeit vorstelle, Dienste mit Hilfe von \emph{semantischen Webservices} 
+anzubinden. 
 
-Im siebten Abschnitt findet sich das Fazit~(\ref{l:fazit}) und ein Ausblick~(\ref{l:ausblick}) auf zukünftige Auswirkungen und Entwicklungen.
+Neben einer Einführung in das Thema, in der ich auch auf die theoretischen Aspekte
+eingehe, analysiere ich in Abschnitt~\ref{l:loesungen} Umsetzungen dieser Theorien 
+in den Standards \emph{\ac{SAWSDL}} und \emph{\ac{ORISF}}.
 
-\textbf{In dieser Seminararbeit möchte ich versuchen die Frage zu beantworten, welche Konzepte für die dynamische Bindung von komplexen Webanwendungen existieren.}
-
+Im \ref{l:verwendung}. Abschnitt beurteile ich dann deren Anwendung bei der Anbindung 
+komplexer Webanwendungen, in dem ich beispielhafte Implementierungen aus der Praxis aufzeige.
 
 \pagebreak
 
@@ -48,13 +88,35 @@ Im siebten Abschnitt findet sich das Fazit~(\ref{l:fazit}) und ein Ausblick~(\re
 \section{Einleitung}
 \label{l:einleitung}
 
-Ein Teil der neueren Entwicklung des Internets zum \emph{Web 2.0} basiert auf der Idee, dass Informationen und Funktionen von Software mit Hilfe von \emph{Webservices} verwendet werden können. \cite{hn-web20}
+Ein Teil der neueren Entwicklung des Internets zum \emph{Web 2.0} basiert auf der Idee, dass 
+Informationen und Funktionen von Software mit Hilfe von \emph{Webservices} verwendet werden 
+können.
 
-Die Kommunikation mit Webservices ist zwar auf Protokollebene standardisiert, muss jedoch vom Konsumenten immer individuell entsprechend dem Domänenmodell des Anbieters implementiert werden, wodurch eine feste Bindung an den Anbieter entsteht.
+Die Kommunikation mit Webservices ist zwar auf Protokollebene standardisiert, muss jedoch 
+vom Konsumenten immer individuell entsprechend dem Domänenmodell des Anbieters implementiert 
+werden, wodurch eine feste Bindung an den Anbieter entsteht. \cite{ka-cots}
 
-Für sogenannte \emph{Blackbox-Webservices} ist das kein Problem --- diese zustandslose Dienste verarbeiten lediglich einfache Daten, d.h. dass der Dienst durch Übergabe eines Datums aufgerufen wird, dieser entsprechend des Aufrufs reagiert und ein Ergebnis zurück liefert.
+Für sogenannte \emph{Blackbox-Webservices} ist das kein Problem --- diese zustandslose Dienste 
+verarbeiten lediglich einfache Daten, d.h. dass der Dienst durch Übergabe eines Datums aufgerufen 
+wird, dieser entsprechend des Aufrufs reagiert und ein Ergebnis zurück liefert.
 
-Anbieter \emph{webbasierter Anwendungen} stehen jedoch vor dem Problem, dass auf Seiten des Anbieters komplexe Arbeitsabläufe abgebildet werden und diese auch persistent innerhalb des Dienstes verbleiben, d.h. sie sind zustandsbehaftet. Auch hier bietet sich die Möglichkeit der Anbindung mittels Schnittstellen, jedoch mit deutlich gesteigertem Aufwand, da zwischen beiden Parteien das Verständnis über die verarbeiteten Entitäten vermittelt werden muss. 
+Diese Eigenschaft steht in direktem Zusammenhang mit einem wichtigen Trend in der Softwareentwicklung:
+\ac{SOA} bei der Anwendungen nicht mehr monolitisch aufgebaut werden, sondern sich in kleiner, in sich 
+geschlossene Komponenten unterteilt, die miteinander über Netzwerkbasierte, öffentliche Schnittstellen, 
+die sogenannte \ac{API}, kommunizieren.
+
+Diese Kapselung von Diensten hat auch zum Ziel, eine möglichst hohe Kohäsion innerhalb eines Systems 
+zu ermöglichen --- Code soll wenn möglich nur einmal geschrieben werden, und im ganzen System verwendet
+werden können, woraus im Endergebnis weniger Code, niedrigere Kosten und eine höhere Standardisierung 
+resultieren. \cite{hn-web20}
+
+% MARK
+
+Anbieter \emph{webbasierter Anwendungen} stehen jedoch vor dem Problem, dass auf Seiten des Anbieters 
+komplexe Arbeitsabläufe abgebildet werden und diese auch persistent innerhalb des Dienstes verbleiben, 
+d.h. sie sind zustandsbehaftet. Auch hier bietet sich die Möglichkeit der Anbindung mittels Schnittstellen, 
+jedoch mit deutlich gesteigertem Aufwand, da zwischen beiden Parteien das Verständnis über die verarbeiteten 
+Entitäten vermittelt werden muss. 
 
 Nach \cite[Seite 653]{ei-sawsdl} sind etablierte Standards für Webservices der ersten Generation wie \ac{SOAP} und \ac{UDDI} primär unter dem Aspekt entwickelt worden, einen einfachen Weg zur Verteilung und Wiederverwertung von Webservices zu etablieren --- ihnen fehlt also eine Standardisierung für das Auffinden, Zusammenstellen und Auswählen von Diensten um eine \emph{lose Kopplung} zu ermöglichen. Für ein lebendiges Web-Öko-System ist die lose Kopplung jedoch von entscheidender Bedeutung --- im Idealfall lassen sich Dienste so anbinden, dass sie jederzeit und ohne Aufwand ausgetauscht werden können und sogar die parallele Verwendung mehrere Dienste der gleichen Art ermöglicht wird.
 
@@ -161,7 +223,9 @@ writing a computer program. \cite{shi1}
 \caption{Extended Web Service Specification Stack, \cite{WSMOLITE}}
 \end{figure}
 
-\subsection{Ontologien}
+\subsection{Theorie}
+
+% Ontologien etc.
 
 Das Transportieren von Bedeutung ist Ziel jeder Kommunikation. Dabei
 differieren oftmals die gedanklichen Verknüpfungen der verwendeten Worte bei
@@ -234,7 +298,7 @@ resource model through ontology evolution and RESTful
 service description, and realize the semantic-level
 integration of resources. \cite{zg-ontorest}
 
-\section{Verwendbarkeit für webbasierter Anwendungen}
+\section{Anwendung bei komplexen webbasierten Anwendungen}
 \label{l:verwendung}
 
 % Literatur finden, die die Anwendung der o.g. Techniken beschreibt
