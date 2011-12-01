@@ -5,41 +5,34 @@ Ein Teil der neueren Entwicklung des Internets zum \emph{Web 2.0} basiert auf de
 
 Die Kommunikation mit Webservices ist zwar auf Protokollebene standardisiert, muss jedoch vom Konsumenten immer individuell entsprechend dem Domänenmodell des Anbieters implementiert werden, wodurch eine feste Bindung an den Anbieter entsteht. \cite{ka-cots}
 
-Für sogenannte \emph{Blackbox-Webservices} ist das kein Problem --- diese zustandslose Dienste verarbeiten lediglich einfache Daten, d.h. dass der Dienst durch Übergabe eines Datums aufgerufen wird, dieser entsprechend des Aufrufs reagiert und ein Ergebnis zurück liefert.
+Für sogenannte \emph{Blackbox-Webservices} ist das kein Problem --- diese \emph{zustandslosen} Dienste verarbeiten lediglich einfache Daten, d.h. dass der Dienst durch Übergabe eines Datums aufgerufen wird, dieser entsprechend des Aufrufs reagiert und ein Ergebnis zurück liefert. Jeder weitere Anfrage wird unabhängig von einer vorherigen behandelt.
 
-Diese Eigenschaft steht in direktem Zusammenhang mit einem wichtigen Trend in der Softwareentwicklung: \ac{SOA} bei der Anwendungen nicht mehr monolitisch aufgebaut werden, sondern sich in kleiner, in sich geschlossene Komponenten unterteilt, die miteinander über netzwerkbasierte, öffentliche Schnittstellen, die sogenannte \ac{API}, kommunizieren.
+Beispiele hierfür ist z.B. ein Webservice, der Wetterdaten für eine PLZ liefert. Hier gibt der Konsument die PLZ eines Ortes in Deutschland ein und erhält in der Antwort eine Temperatur. 
 
-Diese Kapselung von Diensten hat auch zum Ziel, eine möglichst hohe Kohäsion innerhalb eines Systems zu ermöglichen --- Code soll wenn möglich nur einmal geschrieben werden, und im ganzen System verwendet werden können, woraus im Endergebnis weniger Code, niedrigere Kosten und eine höhere Standardisierung resultieren. \cite{hn-web20}
+Für die Nutzung des Dienstes reicht die Kenntnis der Schnittstellen aus. Die genauen technischen Abläufe, wie der Webservice aus der PLZ eine Temperatur ermittelt bleiben für den Konsumenten verborgen und sind für diesen auch irrelevant.\cite{hhxmlwssoa}
 
-% MARK
+Diese Eigenschaft steht in direktem Zusammenhang mit einem wichtigen Trend in der Softwareentwicklung: \ac{SOA} bei der Anwendungen nicht mehr monolithisch aufgebaut werden, sondern in kleinere, in sich geschlossene Komponenten unterteilt werden, die miteinander in einem ein Intra- oder ein Extranet über ihre öffentliche Schnittstellen, die sogenannte \ac{API}, kommunizieren.
 
-Anbieter \emph{webbasierter Anwendungen} stehen jedoch vor dem Problem, dass auf Seiten des Anbieters komplexe Arbeitsabläufe abgebildet werden und diese auch persistent innerhalb des Dienstes verbleiben, d.h. sie sind zustandsbehaftet. Auch hier bietet sich die Möglichkeit der Anbindung mittels Schnittstellen, jedoch mit deutlich gesteigertem Aufwand, da zwischen beiden Parteien das Verständnis über die verarbeiteten 
-Entitäten vermittelt werden muss. 
+Diese Kapselung von Diensten hat auch zum Ziel, eine möglichst hohe Kohäsion innerhalb eines Systems zu ermöglichen --- Quellcode soll wenn möglichst nur einmal geplant, entworfen und geschrieben werden, und im ganzen System verwendet werden, woraus im Endergebnis weniger Code, eine höhere Standardisierung und damit letztendlich niedrigere Kosten resultieren. \cite{hn-web20}
 
-Nach \cite[Seite 653]{ei-sawsdl} sind etablierte Standards für Webservices der ersten Generation wie \ac{SOAP} und \ac{UDDI} primär unter dem Aspekt entwickelt worden, einen einfachen Weg zur Verteilung und Wiederverwertung von Webservices zu etablieren --- ihnen fehlt also eine Standardisierung für das Auffinden, Zusammenstellen und Auswählen von Diensten um eine \emph{lose Kopplung} zu ermöglichen. Für ein lebendiges Web-Öko-System ist die lose Kopplung jedoch von entscheidender Bedeutung --- im Idealfall lassen sich Dienste so anbinden, dass sie jederzeit und ohne Aufwand ausgetauscht werden können und sogar die parallele Verwendung mehrere Dienste der gleichen Art ermöglicht wird.  
+Anbieter \emph{webbasierter Anwendungen} zeichnet jedoch aus, dass sie komplexe Arbeitsabläufe abbilden --- die Anwendung wird dadurch \emph{zustandsbehaftet}. Als Beispiel für diese Art von webbasierten Diensten werde ich in dieser Seminararbeit die Online-Zeiterfassung \ac{mite} betrachten, mit dem man Arbeitszeit Erfassen und Auswertung kann.
 
-% Infos zu Blackbox-WS einfließen lassen
+Die Funktionalität von \ac{mite} kann für sich alleinstehend verwendet werden. Hierzu werden über die Website die notigen Businessdaten von \ac{mite} (Benutzer, Leistungen\footnote{beschreibt eine Tätigkeit, z.B. Programmierung, mit einem Stundensatz}, Projekte, Kunden und Zeiten) angelegt. Diese Daten werden bei \ac{mite} gespeichert. 
 
-Für die Nutzung eines Dienstes reicht die Kenntnis der Schnittstellen aus. Ein tieferes Verständnis der internen Vorgänge wird nicht benötigt, bzw. soll bewusst verborgen werden. \cite{hhxmlwssoa}
+Das Problem bei Schnittstellen zu zustandsbehaften Webservices resultiert daraus, dass der Verwender des Services eine Vermittlungsschicht zwischen seiner Domänen-Logik und der des Webservices implementieren muss, die zwischen beiden Parteien das Verständnis über die verarbeiteten Entitäten vermittelt und er sich so fest an den jeweiligen Dienst bindet.
 
-Beispiele hierfür ist z.B. ein Webservice, der Wetterdaten für eine PLZ liefert. Hier gibt der Konsument die PLZ eines Ortes in Deutschland ein und erhält in der Antwort eine Temperatur. Die genauen technischen Abläufe, wie der Webservice aus der PLZ eine Temperatur ermittelt bleiben für den Konsumenten verborgen und sind für diesen auch irrelevant.
+Angenommen, ein IT-Unternehmen setzt in seinem Intranet eine Software zur Projektverwaltungssoftware ein, in dem alle Mitarbeiter auf alle Projekte, an denen sie arbeiten zugriff haben. In diesem Intranet werden auch die Aufgaben zu den einzelnen Projekten verwaltet, sowie die zugeordneten Kostenstellen. Die Software bietet auch eine Funktion zur Zeiterfassung an, diese ist aber sehr unkomfortabel und fehlerhaft und wird von den Mitarbeitern nicht verwendet. 
 
-Diese Arten von Diensten sind zustandslos, d.h. sie behandlen jede Anfrage unabhängig von einer vorherigen.
+Das Unternehmen entscheidet sich nun, \ac{mite} zur Zeiterfassung ein zu setzen. Mit dessen öffentlich API\footnote{http://mite.yo.lk/api/index.html} ist es möglich, alle Businessdaten zu bearbeiten. Um die Verwendung für die eigenen Mitarbeiter so komfortabel wie möglich zu machen, und die erfassten Zeiten automatisch den eigenen Projekten zuordnen zu können, implementiert das Unternehmen in der Intranet-Software ein Mapping zwischen seinen eigenen Businessdaten und denen von Mite. Mitarbeiter entsprechen dabei Benutzern, die rechnerischen Stundensätzen von Kostenstellen entsprechen Leistungen. Projekte, Kunden und Zeiten existieren zwar in beiden Domänen, aber mit gänzlich unterschiedlichen Attributen --- auch hierfür ist ein Mapping notwendig. Mit Hilfe das Mappings können beide System parallel verwendet werden und es ist sichergestellt, dass die Datenbestände beider Seiten synchronisiert sind.
 
-% Infos zu Whitebox-WS einfließen lassen
-% Webbasierte Anwendungen, Whitebox-Dienste
+\textbf{Was ist aber in dem Fall, dass der gewählte Service nicht mehr eingesetzt werden soll oder kann?}
 
-Nicht zustandslos.
+Nach \cite[Seite 653]{ei-sawsdl} sind etablierte Standards für Webservices der ersten Generation wie \ac{SOAP} und \ac{UDDI} primär unter dem Aspekt entwickelt worden, einen einfachen Weg zur Verteilung und Wiederverwertung von Webservices zu etablieren --- ihnen fehlt also eine Standardisierung für das Auffinden, Zusammenstellen und Auswählen von Diensten um eine \emph{lose Kopplung} zu ermöglichen. 
 
-Beispiele hierfür sind z.B. Werkzeuge zur projektspezifischen Zeiterfassung. 
+Für ein lebendiges Web-Öko-System ist die lose Kopplung jedoch von entscheidender Bedeutung --- im Idealfall lassen sich Dienste so anbinden, dass sie jederzeit und mit geringem Aufwand ausgetauscht werden können. Das Mapping zwischen den Diensten müsste also so allgemein definiert sein, dass lediglich die \emph{Definition} angepasst werden müsste, aber nicht die \emph{Implementierung} --- ein Wechseln des Services hätte lediglich das Ändern einer Schnittstellenbeschreibung zur Folge, ohne dass man konkreten Quellcode anpassen muss.
 
-% Beispiele einfließen lassen
+Im Hinblick auf ökonomische Aspekte kann es sogar von Vorteil sein, die parallele Verwendung mehrere Dienste der gleichen Art zu ermöglichen. Im Intranet-Beispiel könnte das Unternehmen seinen Mitarbeitern die Zeiterfassung mit \ac{mite} ermöglichen, aber auch alternativ mit z.B. \emph{TimeNote}\footnote{http://www.timenote.de/}. Auf den ersten Blick erscheint diese heterogenität Kontraproduktiv, das Unternehmen eröffnet seinen Mitarbeitern aber so die Möglichkeit, das Werkzeug für die gegebene Aufgabe "`Zeiterfassung"' zu verwenden, dass ihren  Vorlieben am ehesten entspricht. Patel beschreibt z.B. in \cite{pl-depintra}, dass Unternehmensintranets oft zu unspezifisch für die individuellen Bedürfnisse eines einzelnen Mitarbeiters sind.
 
-\begin{itemize}
-\item Mite
-\item E-Mail-Backup
-\end{itemize}
+Neben der Möglichkeit zur Wahl, erhält man so auch automatisch Redundanz.
 
-% Hinweis auf Ökonomische Aspekte, Ultra Large Scale Systems
-
-Eine Möglichkeit die Überlebensfähigkeit von digitalen Ökosystemen sicherzustellen ist es, Redundanz einzuführen und zwar Redundanz auf allen Ebenen, angefangen von der Hardware über die Betriebssysteme bis hin zur Software und den eingesetzten Services. Ein solch hohes Maß an Redundanz würde jedoch immense Investitionen verschlingen, von daher ist es günstiger, mit einer minimalen Redundanz zu leben und die Qualitäten der gelieferten Services zu reduzieren. Für die Qualitätsreduktion ist jedoch wichtig zu wissen, was an Services vom System noch in welcher Qualität zur Verfügung steht und was nicht. Die "überlebenden" Services werden neu komponiert und den Consumern zur Verfügung gestellt. Diese Form der ad-hoc Komposition bedingt, dass Servicekomposition (s. Abschn. 2.7.3) sich neben den fachlichen Interfaces und den "bestmöglichen" Qualitäten auch an Notfallpolicies orientieren kann. \cite{mkulss}
+Masak hat in \cite{mkulss} diesen Gedanken auf eine größere Ebene übertragen und kommt zu dem Schluss, dass es in einem digitalen Ökosystem, wie das Internet eines ist, notwendig ist, Redundanz auf allen Ebenen einzuführen, und durch eine abstrahiertes Mapping eine ad-hoc Komposition von Services zu ermöglichen.
