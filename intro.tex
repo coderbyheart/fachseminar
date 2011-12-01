@@ -1,0 +1,45 @@
+\section{Einleitung}
+\label{l:einleitung}
+
+Ein Teil der neueren Entwicklung des Internets zum \emph{Web 2.0} basiert auf der Idee, dass Informationen und Funktionen von Software mit Hilfe von \emph{Webservices} verwendet werden können.
+
+Die Kommunikation mit Webservices ist zwar auf Protokollebene standardisiert, muss jedoch vom Konsumenten immer individuell entsprechend dem Domänenmodell des Anbieters implementiert werden, wodurch eine feste Bindung an den Anbieter entsteht. \cite{ka-cots}
+
+Für sogenannte \emph{Blackbox-Webservices} ist das kein Problem --- diese zustandslose Dienste verarbeiten lediglich einfache Daten, d.h. dass der Dienst durch Übergabe eines Datums aufgerufen wird, dieser entsprechend des Aufrufs reagiert und ein Ergebnis zurück liefert.
+
+Diese Eigenschaft steht in direktem Zusammenhang mit einem wichtigen Trend in der Softwareentwicklung: \ac{SOA} bei der Anwendungen nicht mehr monolitisch aufgebaut werden, sondern sich in kleiner, in sich geschlossene Komponenten unterteilt, die miteinander über Netzwerkbasierte, öffentliche Schnittstellen, die sogenannte \ac{API}, kommunizieren.
+
+Diese Kapselung von Diensten hat auch zum Ziel, eine möglichst hohe Kohäsion innerhalb eines Systems zu ermöglichen --- Code soll wenn möglich nur einmal geschrieben werden, und im ganzen System verwendet werden können, woraus im Endergebnis weniger Code, niedrigere Kosten und eine höhere Standardisierung resultieren. \cite{hn-web20}
+
+% MARK
+
+Anbieter \emph{webbasierter Anwendungen} stehen jedoch vor dem Problem, dass auf Seiten des Anbieters komplexe Arbeitsabläufe abgebildet werden und diese auch persistent innerhalb des Dienstes verbleiben, d.h. sie sind zustandsbehaftet. Auch hier bietet sich die Möglichkeit der Anbindung mittels Schnittstellen, jedoch mit deutlich gesteigertem Aufwand, da zwischen beiden Parteien das Verständnis über die verarbeiteten 
+Entitäten vermittelt werden muss. 
+
+Nach \cite[Seite 653]{ei-sawsdl} sind etablierte Standards für Webservices der ersten Generation wie \ac{SOAP} und \ac{UDDI} primär unter dem Aspekt entwickelt worden, einen einfachen Weg zur Verteilung und Wiederverwertung von Webservices zu etablieren --- ihnen fehlt also eine Standardisierung für das Auffinden, Zusammenstellen und Auswählen von Diensten um eine \emph{lose Kopplung} zu ermöglichen. Für ein lebendiges Web-Öko-System ist die lose Kopplung jedoch von entscheidender Bedeutung --- im Idealfall lassen sich Dienste so anbinden, dass sie jederzeit und ohne Aufwand ausgetauscht werden können und sogar die parallele Verwendung mehrere Dienste der gleichen Art ermöglicht wird.  
+
+% Infos zu Blackbox-WS einfließen lassen
+
+Für die Nutzung eines Dienstes reicht die Kenntnis der Schnittstellen aus. Ein tieferes Verständnis der internen Vorgänge wird nicht benötigt, bzw. soll bewusst verborgen werden. \cite{hhxmlwssoa}
+
+Beispiele hierfür ist z.B. ein Webservice, der Wetterdaten für eine PLZ liefert. Hier gibt der Konsument die PLZ eines Ortes in Deutschland ein und erhält in der Antwort eine Temperatur. Die genauen technischen Abläufe, wie der Webservice aus der PLZ eine Temperatur ermittelt bleiben für den Konsumenten verborgen und sind für diesen auch irrelevant.
+
+Diese Arten von Diensten sind zustandslos, d.h. sie behandlen jede Anfrage unabhängig von einer vorherigen.
+
+% Infos zu Whitebox-WS einfließen lassen
+% Webbasierte Anwendungen, Whitebox-Dienste
+
+Nicht zustandslos.
+
+Beispiele hierfür sind z.B. Werkzeuge zur projektspezifischen Zeiterfassung. 
+
+% Beispiele einfließen lassen
+
+\begin{itemize}
+\item Mite
+\item E-Mail-Backup
+\end{itemize}
+
+% Hinweis auf Ökonomische Aspekte, Ultra Large Scale Systems
+
+Eine Möglichkeit die Überlebensfähigkeit von digitalen Ökosystemen sicherzustellen ist es, Redundanz einzuführen und zwar Redundanz auf allen Ebenen, angefangen von der Hardware über die Betriebssysteme bis hin zur Software und den eingesetzten Services. Ein solch hohes Maß an Redundanz würde jedoch immense Investitionen verschlingen, von daher ist es günstiger, mit einer minimalen Redundanz zu leben und die Qualitäten der gelieferten Services zu reduzieren. Für die Qualitätsreduktion ist jedoch wichtig zu wissen, was an Services vom System noch in welcher Qualität zur Verfügung steht und was nicht. Die "überlebenden" Services werden neu komponiert und den Consumern zur Verfügung gestellt. Diese Form der ad-hoc Komposition bedingt, dass Servicekomposition (s. Abschn. 2.7.3) sich neben den fachlichen Interfaces und den "bestmöglichen" Qualitäten auch an Notfallpolicies orientieren kann. \cite{mkulss}

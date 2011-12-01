@@ -1,9 +1,9 @@
 all: fachseminar.pdf
 
-fachseminar.pdf: fachseminar.tex bibliothek.bib
-	pdflatex -interaction=nonstopmode fachseminar.tex
+fachseminar.pdf: fachseminar.tex bibliothek.bib abstract.tex intro.tex Makefile semws.tex loesungen.tex
+	-pdflatex -interaction=nonstopmode fachseminar.tex
 	bibtex fachseminar.aux
-	pdflatex -interaction=nonstopmode fachseminar.tex
+	-pdflatex -interaction=nonstopmode fachseminar.tex
 	pdflatex -interaction=nonstopmode fachseminar.tex
 
 clean:
