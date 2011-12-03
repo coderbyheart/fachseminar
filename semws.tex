@@ -3,14 +3,36 @@
 
 \subsection{Semantik}
 
-Wie schon auf Seite \pageref{l:intro-loosecoupling} beschrieben, ist Voraussetzung für eine Service-Infrastruktur mit loser Kopplung, dass die Bedeutung der Aufgabe, die mit dem Webservice abgebildet wird automatisch ermittelt werden kann.\cite{xmlspek1}
-
-Beschreibt man einen Webservice z.B. mittels der \ac{WSDL}, legt man damit lediglich den Syntax für die vom Webservice verarbeiteten Anfragen fest, die Bedeutung der Funktionalität und der übertragenen Daten erschließt sich daraus nicht, sondern entsteht lediglich in der Interpretation der Benutzer des Dienstes. In Listing \ref{code:wsdl} findet sich eine WSDL für einen Webservice, mit dem sich die aktuell in Google gestellten Fragen abrufen lassen\footnote{http://peopleask.ooz.ie/}. In der Beschreibung finden sich aber lediglich die Entitäten \emph{GetQuestionsAbout} mit dem Attribut \emph{query} und \emph{GetQuestionsAboutResponse} \emph{GetQuestionsAbout}, das eine Liste mit Strings ist. Aus dem Dokument geht nicht hervor, dass eigentlich \emph{Suchanfragen} einer \emph{Suchmaschine} zurückgegeben werden --- dieses Wissen ensteht aus Informationen, die außerhalb der Schnittstellenbeschreibung zugänglich sind.
-
-Auf unsere Beispiel mit dem Intranet und der Zeiterfassung übertragen, fehlt z.B. die Information, dass Mitarbeiter des Unternehmens eine Entsprechung in \ac{mite} haben, nämlich dort als Benutzer verstanden werden.
-
-Es fehlt also eine Komponente, die dem reinen Akt der Datenübertragung ein inhaltlichen Beschreibung, hinzufügt und das zudem noch in maschinenlesbarer Form. \cite{xmlspek2}
-
 Die \emph{Semantik} (griechisch, "`bezeichnen"') beschreibt das Wesen von Dingen und ermöglicht die Interpretation und Übertragung von Konzepten auf konkrete Begebenheiten. Semantik ist die Grundlage jeglicher Kommunikation und umgibt uns überall. Bereits in jungen Jahren lernen wir, dass ein über einem Weg hängender Kasten, aus dem uns ein Licht rot anstrahlt eine \emph{bestimmte} Bedeutung hat. Intuitiv verbinden wir damit: "`Halt, hier geht es nicht weiter."' Wichtig ist allerdings, dass die scheinbar eindeutige Verbindung zwischen der Farbe "`Rot"' und dem Konzept "`Nicht weiter gehen!"' kontextabhängig ist. Begegnet uns ein leuchtendes Rot auf einem Apfel, wissen wir, dass das Obst frisch und genießbar ist --- die Bedeutung verdreht sich in das Gegenteil.
+
+Wie schon auf Seite \pageref{l:intro-loosecoupling} beschrieben, ist Voraussetzung für eine Service-Infrastruktur mit loser Kopplung, dass die Bedeutung der Aufgabe, die mit dem Webservice abgebildet wird automatisch ermittelt werden kann.
+
+Beschreibt man einen Webservice z.B. mittels der \ac{WSDL}, legt man damit lediglich den Syntax für die vom Webservice verarbeiteten Anfragen fest. Die Bedeutung der Funktionalität und der übertragenen Daten erschließt sich daraus nicht. Sie entsteht lediglich in der Interpretation der Benutzer des Dienstes. 
+
+In Listing \ref{code:wsdl} auf Seite \pageref{code:wsdl} findet sich eine WSDL für einen Webservice, mit dem sich die aktuell in Google gestellten Fragen abrufen lassen\footnote{http://peopleask.ooz.ie/}. Sie beschreibt die Entitäten \emph{GetQuestionsAbout} mit dem Attribut \emph{query} und \emph{GetQuestionsAboutResponse}, das eine Liste mit Strings ist. Aus dem Dokument geht jedoch nicht hervor, dass eigentlich \emph{Suchanfragen} einer \emph{Suchmaschine} zurückgegeben werden --- dieses Wissen entsteht aus Informationen, die nur außerhalb der Schnittstellenbeschreibung zugänglich sind.
+
+Es fehlt also eine Komponente, die dem reinen Akt der Datenübertragung ein inhaltlichen Beschreibung, hinzufügt und das zudem noch in maschinenlesbarer Form.
+
+\subsection{Ontologien}
+
+In der Informatik sind \emph{Ontologien} die \emph{Spezifikation eines Konzepts}. 
+
+\emph{Spezifikation} bedeutet dabei eine formale und deklarative Repräsentation, die damit automatisch maschinenlesbar ist und Missverständnisse ausschließt. Ein \emph{Konzept} ist die abstrakte und vereinfachte Sicht der für das Konzept relevanten Umgebung.
+
+Ontologien beschreiben aus der Sicht des Dienstanbieters die Zusammenhänge in der Umgebung, auf die durch den Webservice implizit zugegriffen wird.
+
+In \cite{dcswe} liefert Devedžić zum bessern Verständnis dieses Bildnis: Möchte eine Person über Dinge aus der Domäne \emph{D} mit der Sprache \emph{L} sprechen, beschreiben Ontologien die Dinge, von denen angenommen wird, dass sie in \emph{D} existieren als Konzepte, Beziehungen und Eigenschaften von \emph{L}.
+
+\subsection{Semantische Beschreibung}
+
+Mit Hilfe des \ac{RDF}, der \ac{RDFS} und deren Erweiterung \ac{OWL} ist es möglich, Webservices semantisch zu beschreiben. 
+
+In \ac{RDF} werden dabei die Entitäten (in \ac{RDF} "`Ressourcen"' genannt) mit ihren Attributen und Beziehungen untereinander syntaktisch beschrieben \cite{w3c-rdf}.
+
+In \ac{RDF} fehlt aber die Möglichkeit, die Beziehungen von Eigenschaften zu beschreiben. Zum Beispiel besitzt ein Buch das Attribut \emph{Autor}. Dass damit aber eine weitere Ressource gemeint ist (eine \emph{Person} mit der Rolle \emph{Autor}) lässt sich in einem \ac{RDF}-Dokument nicht hinterlegen. Mit \ac{RDFS} wurde deswegen die Mlöglichkeit geschaffen, Gruppen zusammengehöriger Ressourcen und ihrer Beziehung untereinander zu beschreiben \cite{w3c-rdfs}.
+
+Mit \ac{OWL} ist es schließlich möglich, Ontologien in Form von Klassen, Eigenschaften, Instanzen und Operationen zu beschreiben \cite{w3c-owl2primer}.
+
+Die sich damit bietende Möglichkeit, auch Webservices semantisch zu beschreiben ist also die Voraussetzung dafür, dass Technologien entstehen, mit denen die Vermittlung zwischen zwei Domänen automatisiert statt finden können.
 
 \paragraph{Weiterführende Publikationen} In einer Artikelserie aus dem Jahr 2004 (\cite{xmlspek1}, \cite{xmlspek2}, \cite{xmlspek3} und \cite{xmlspek4}) beschreiben Wolfgang Dostal, Mario Jeckle und Werner Kriechbaum ausführlich das Konzept der semantischen Webservices.
