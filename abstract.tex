@@ -1,22 +1,12 @@
 \section*{Abstract}
 
-Die Integration von Dienstangeboten über das Internet als sogenannte 
-\emph{Webservices} ist heutzutage kein Problem mehr. Existierende Standards
-wie z.B. \ac{SOAP} und \ac{UDDI} liefern hierfür bewährte Werkzeuge.
+Die Integration von Dienstangeboten über das Internet als sogenannte \emph{Webservices} ist heutzutage kein Problem mehr. Existierende Standards wie z.B. das \ac{SOAP} und \ac{UDDI} liefern hierfür bewährte Werkzeuge.
 
-Diese Standards der ersten Generation wurden jedoch im Hinblick auf 
-die Anbindung zustandsloser Webservices entwickelt~\cite[S. 653]{ei-sawsdl} 
-und bilden die Verbindung zwischen zwei Diensten immer individuell ab.
+Wie Elyacoubi, Belouadha und Roudies aber in \cite{ei-sawsdl} beschreiben, wurden diese Standards der ersten Generation im Hinblick auf die Anbindung zustandsloser Webservices entwickelt und bilden damit die Verbindung zwischen zwei Diensten immer individuell ab.
 
-Hieraus ergibt sich jedoch ein Problem bei der Anbindung komplexer 
-Webanwendungen: werden diese mit Hilfe der genannten Techniken 
-angebunden, wird das zur Vermittlung zwischen den jeweiligen Domänenkonzepten
-nötige Wissen in der Implementierung der Integration \emph{hart kodiert} --- 
-andere oder zusätzliche Dienste gleicher Art können deswegen nicht ohne erneuten
-Aufwand angebunden werden.
+Hieraus ergibt sich jedoch ein Problem bei der Anbindung komplexer Webanwendungen: werden diese mit Hilfe der genannten Techniken angebunden, wird das zur Vermittlung zwischen den jeweiligen Domänenkonzepten nötige Wissen in der Implementierung der Integration \emph{hart kodiert} --- andere oder zusätzliche Dienste gleicher Art können deswegen nicht ohne erneuten Aufwand angebunden werden.
 
-Die Suche nach Konzepten für die dynamische Bindung von komplexen Webanwendungen
-ist die Motivation für diese Fachseminararbeit, in der ich in Abschnitt~\ref{l:sem-web-ser} die Möglichkeit vorstelle, Webservices semantisch zu beschreiben. Neben einer Einführung in das Thema, in der ich auf die theoretischen Aspekte eingehe, analysiere ich in Abschnitt~\ref{l:loesungen} Umsetzungen dieser Theorien in den Standards \ac{SAWSDL} und \ac{ORISF}.
+Die Suche nach Konzepten für die dynamische Bindung von komplexen Webanwendungen ist die Motivation für diese Fachseminararbeit, in der ich in Abschnitt~\ref{l:sem-web-ser} die Möglichkeit vorstelle, Webservices semantisch zu beschreiben. Neben einer Einführung in das Thema, in der ich auf die theoretischen Aspekte eingehe, analysiere ich in Abschnitt~\ref{l:loesungen} Umsetzungen dieser Theorien in den Standards \ac{SAWSDL} und \ac{ORISF}.
 
 Im \ref{l:verwendung}. Abschnitt beurteile ich dann deren Anwendung bei der Anbindung 
 komplexer Webanwendungen, in dem ich beispielhafte Implementierungen aus der Praxis aufzeige.
