@@ -1,4 +1,16 @@
+Ziel einer Lösung muss es also sein, dass man Web Services, die zur Entwicklungszeit noch unbekannt sind, dynamisch binden kann. Wie Dostal und Jeckle in \cite[S.61]{xmlspek4} ausführen, werden in den üblichen Beschreibungen zum Ablauf in einem Web-Service-Szenario \ac{WSDL}-Dokumente hauptsächlich als Eingabe für einen Generator beschrieben, mit dessen Hilfe die programmierspezifischen Implementierungen erzeugt werden. Dies erfolgt allerdings in der Regel zur Entwicklungszeit der Anwendung und nicht zu deren Laufzeit.
+
+Zwar ist es bei Sprach- und Ausführungsumgebungen wie Java heute technisch durchaus möglich, auch zur Ausführungszeit Klassen der Anwendung hinzuzufügen und auf diesem Weg das oben beschriebene Implementierungszenario von der Entwicklungs- in die Laufzeit zu verlagern. Allerdings würde ein solcher Ansatz eine Reihe von Nachteilen bzw. Riksiken bergen. Das gewichtigste Argument gegen den Genierungsansatz ist zweifelsfrei im Bereich Sicherheit angesiedelt. Das Einbinden von nicht getestetem Code bietet geschickten Angreifenr ein \emph{el Dorada} von Möglichkeiten, potentiell gefährliche Programmsequenzen in die Anwendung ein zu schmuggeln.
+
+Statt des generativen Ansatzes eignet sich daher ein Framework, das mit Hilfe der Informationen in einem \ac{WSDL}-Dokument eine \ac{SOAP}-Kommunikation durchführen kann, ohne dazu Codegenerierungen durchführen zu müssen, besser. Für Java-Anwendungen existiert dazu unter anderem das \ac{WSIF} der Apache Group. Entsprechend den Elementen einer WSDL-Beschreibung sind innerhalb des \ac{WSIF} Klassen definiert, die mittels der \ac{WSDL}-Eingabe parametrisiert werden. Damit ist es möglich jeden denkbaren Web Service "`spontan"' zu nutzen und so tatsächlich dynamisches Verhalten der Anwendungen in Web-Service-Szenarien zu erreichen.
+
+
+
+In diesem Abschnitt stelle ich zwei konkrete Ansätze zur automatischen, domänenübergreifenden Vermittlung zwischen Webservices vor.
+
 \subsection{SAWSDL}
+
+In \ac{SAWSDL} werden mit einem \emph{liftingSchemaMapping} und einem \emph{loweringSchemaMapping} die Abbildung der Funktionen eines Webservices auf eine Semantik abgebildet.
 
 As we noted in section 1, the technology of the Web
 services was accompanied by many standards. However,
@@ -25,6 +37,8 @@ gain of SAWSDL lies in opportunities to annotate existing
 WSDL descriptions in a bottom-up fashion while at the
 same time only use descriptions of services which are relevant
 to specific domain requirements. \cite{WSMOLITE}
+
+http://www.docstoc.com/docs/82666005/SAWSDL-tutorial-at-Semantic-Technology-Conference-2007
 
 \subsection{ORISF}
 
