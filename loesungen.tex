@@ -112,14 +112,24 @@ http://www.docstoc.com/docs/82666005/SAWSDL-tutorial-at-Semantic-Technology-Conf
 \begin{itemize}
 \item http://www.w3.org/TR/sawsdl-guide/
 \item \ac{SAWSDL} und \ac{REST}? \cite{xn-sss}
-\item \ac{SAWSDL} verwenden: Grüner Kasten in \cite[S.63]{ky-sawsdl} und ausführlicher in \cite{vr-sesa}
+\item \ac{SAWSDL} verwenden: Grüner Kasten in \cite[S.63]{ky-sawsdl}, \cite{flexbrok} und sehr ausführlich in \cite{vr-sesa}
 \end{itemize}
 
-\subsection{ORISF}
+\subsection{Dynamische Verwendung von semantischen Webservices}
 
-This paper presents the Ontology-based Resourceoriented
-Information Supported Framework (ORISF). The
-framework’s aim is to support RESTful Web Service with
-resource model through ontology evolution and RESTful
-service description, and realize the semantic-level
-integration of resources. \cite{zg-ontorest}
+The proposed architecture contains a Service Broker to
+register semantic service descriptions and perform automatic
+service discovery, and a Service Container for monitoring
+services and service integration. The process of automatic
+service replacement is achieved by an interaction of service
+brokering request, service discovery, and service integration
+between Service Broker and Service Container. \cite[S.410]{flexbrok}
+
+The specification
+and publishing of service descriptions, either semantic
+or syntactic, is done manually. ... The specification
+of the semantic service description of a service offer and its
+publication is manually done by the service vendor. ... Furthermore, service descriptions must be deleted at the
+Service Broker if they become unavailable. \cite[S.416]{flexbrok}
+
+Beispiel: Media-Player \cite[S.418]{flexbrok}
