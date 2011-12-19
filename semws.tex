@@ -1,5 +1,4 @@
-
-\emph{Semantische Webservices} sind ein Konzept, mit dem es möglich wird, die Anbindung von Webservices abstrakt zu beschreiben und so eine lose Kopplung zu erreichen. In diesem Abschnitt erläutere ich deren Grundlagen.
+Wie im vorigen Abschnitt beschrieben wurde, fehlt der bisherigen Beschreibung von Webservices der semantische Aspekt. Unter \emph{semantischen \ac{WS}} versteht man solche \ac{WS}, deren Beschreibung neben der konkreten technischen Aspekten zur Anbindung auch Information zur abgebildeten "`Welt"' enthalten. In diesem Abschnitt erläutere ich deren Grundlagen.
 
 \subsection{Semantik}
 
@@ -35,4 +34,109 @@ Mit \ac{OWL} ist es schließlich möglich, Ontologien in Form von Klassen, Eigen
 
 Die sich damit bietende Möglichkeit, auch Webservices semantisch zu beschreiben ist also die Voraussetzung dafür, dass Technologien entstehen, mit denen die Vermittlung zwischen zwei Domänen automatisiert statt finden können.
 
-\paragraph{Weiterführende Publikationen} In einer Artikelserie aus dem Jahr 2004 (\cite{xmlspek1}, \cite{xmlspek2}, \cite{xmlspek3} und \cite{xmlspek4}) beschreiben Wolfgang Dostal, Mario Jeckle und Werner Kriechbaum ausführlich das Konzept der semantischen Webservices.
+\subsection{SAWSDL}
+
+SAWSDL is the World Wide Web Consortium’s
+(W3C; www.w3.org) first step toward standardizing
+technologies for Semantic Web services
+(SWSs). As a standard, it provides a common
+ground for the various ongoing efforts
+toward SWS frameworks, such as the
+Web Service Modeling Ontology
+(WSMO; www.wsmo.org)2 and the
+OWL-based Web Service Ontology
+(OWL-S; www.daml.org/services/owl-s).\cite[S.60]{ky-sawsdl}
+
+On the semantic side, SAWSDL is independent
+of any ontology technology
+and assumes that semantic concepts
+can be identified via URIs. For instance,
+SWS frameworks can use the Resource
+Description Framework (RDF) and Web
+Ontology Language (OWL) with SAWSDL
+to annotate Web services..\cite[S.61]{ky-sawsdl}
+
+SAWSDL is a set of extensions for
+WSDL, which provides a standard
+description format for Web services.
+WSDL uses XML as a common flexible
+data-exchange format and applies
+XML Schema for data typing. It
+describes a Web service on three levels:
+\begin{itemize}
+\item Reusable abstract interface defines
+a set of operations, each representing
+a simple exchange of messages
+described with XML Schema element
+declarations.
+\item  Binding describes on-the-wire mes-
+sage serialization; it follows the
+structure of an interface and fills in
+the necessary networking details
+(for instance, for SOAP or HTTP).
+\item Service represents a single physical
+Web service that implements a single
+interface; the Web service can
+be accessed at multiple network
+endpoints.
+\end{itemize}
+
+WSDL aims to describe the Web
+service on a syntactic level: it specifies
+what messages look like rather
+than what they mean. SAWSDL is a
+simple extension layer on top of
+WSDL that lets WSDL components
+specify their semantics. SAWSDL
+defines extension attributes that we
+can apply to elements both in WSDL
+and in XML Schema to annotate
+WSDL interfaces, operations, and their
+input and output messages.
+The SAWSDL extensions take two
+forms: model references that point to
+semantic concepts and schema mappings
+that specify data transformations
+between messages’ XML data
+structure and the associated semantic
+model. In Table 1, we summarize
+the complete syntax introduced by
+SAWSDL.
+
+... bis Seite 63 in \cite{ky-sawsdl}
+
+In \ac{SAWSDL} werden mit einem \emph{liftingSchemaMapping} und einem \emph{loweringSchemaMapping} die Abbildung der Funktionen eines Webservices auf eine Semantik abgebildet.
+
+As we noted in section 1, the technology of the Web
+services was accompanied by many standards. However,
+these standards do not remedy to the problem of adaptability
+to Web services’ changes, and do not cover all aspects related
+to different tasks of the Web service’s life cycle, namely, the
+discovery, the invocation, the publication and the
+composition. Indeed, many enterprises applications, in
+particular, can constantly have need to discover and use
+existing Web services, or to compose them to meet new
+requirements or a complex request (eg. a travel agency can
+for example use both fly and hotel booking services to
+respond a customer’s query). The number of Web services
+which increase on Internet makes their discovery and/or
+composition a complex task. Automating these tasks is a
+solution which would reduce the cost of the Web services’
+implementation. Nevertheless, with this intention, we think
+that it is necessary to enrich the description of the Web
+services by explicit and comprehensible semantics, which can
+be used by the machine. \cite{ei-sawsdl}
+
+The more valuable
+gain of SAWSDL lies in opportunities to annotate existing
+WSDL descriptions in a bottom-up fashion while at the
+same time only use descriptions of services which are relevant
+to specific domain requirements. \cite{WSMOLITE}
+
+http://www.docstoc.com/docs/82666005/SAWSDL-tutorial-at-Semantic-Technology-Conference-2007
+
+\begin{itemize}
+\item http://www.w3.org/TR/sawsdl-guide/
+\item \ac{SAWSDL} und \ac{REST}? \cite{xn-sss}
+\item \ac{SAWSDL} verwenden: Grüner Kasten in \cite[S.63]{ky-sawsdl}, \cite{flexbrok} und sehr ausführlich in \cite{vr-sesa}
+\end{itemize}

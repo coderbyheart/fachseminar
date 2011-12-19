@@ -1,6 +1,6 @@
 all: fachseminar.pdf
 
-fachseminar.pdf: fachseminar.tex bibliothek.bib abstract.tex intro.tex Makefile semws.tex loesungen.tex abkuerzungen.tex verwendung.tex fazit.tex ausblick.tex listings.tex media/wsdl.xml
+fachseminar.pdf: fachseminar.tex bibliothek.bib abstract.tex intro.tex Makefile semws.tex loesungen.tex abkuerzungen.tex verwendung.tex fazit.tex listings.tex media/wsdl.xml
 	-pdflatex -interaction=nonstopmode fachseminar.tex
 	bibtex fachseminar.aux
 	-pdflatex -interaction=nonstopmode fachseminar.tex
