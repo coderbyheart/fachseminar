@@ -5,6 +5,7 @@ fachseminar.pdf: fachseminar.tex bibliothek.bib abstract.tex intro.tex Makefile 
 	bibtex fachseminar.aux
 	-pdflatex -interaction=nonstopmode fachseminar.tex
 	pdflatex -interaction=nonstopmode fachseminar.tex
+	mv fachseminar.pdf Dynamische\ Integration\ von\ Webservices\ -\ Markus\ Tacker\ -\ 2012-01-03.pdf
 
 clean:
 	-/bin/rm *.lof *.log *.lot *.aux *.bbl *.toc *.blg *.dvi *~ *.out
