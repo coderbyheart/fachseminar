@@ -38,7 +38,7 @@ Auch wenn dass \ac{W3C} in seinen Standards und Entwürfen keine Vorgaben zur ei
 
 Auch die in Abschnitt~\pageref{l:einleitung} vorgestellte \ac{API} von \emph{mite} ist \emph{RESTful}. Möchte man nun aber solch eine \ac{API} semantisch beschreiben steht man vor dem Problem, dass es mit einer \ac{WSDL} nicht möglich ist eine solche Schnittstelle korrekt zu beschreiben. Dies liegt vor allem daran, dass das HTTP-Binding in \ac{WSDL} 1.1 zum einen nur \texttt{GET} und \texttt{POST} offiziell unterstützt (in \emph{REST} werden weitere HTTP-Methoden wie \texttt{PUT} und \texttt{DELETE} verwendet) und ein \emph{port type} (der Endpunkt einer API-Methode) bis zu vier verschiedene Operation pro Endpunkt definiert (Schreiben [\emph{One-way}], Schreiben \& Lesen [\emph{Request-response}], Lesen [\emph{Solicit-response}] und Benachrichtigung [\emph{Notification}]), diese aber mit der gleichen HTTP-Methode (die im \emph{binding} festgelegt wird).
 
-\ac{WSDL} und damit auch \ac{SAWSDL} sind also ungeeignet um eine \restapi semantisch zu beschreiben, mit den Veröffentlichungen von Xuan Shi in \cite{xn-sss} und Maleshkova, Kopeck\'{y} und Pedrinaci in \cite{ma-sawslrest} stehen aber zwei Entwürfe zur Verfügung, die eine Lösung für dieses Problem bieten, deren Vorstellung aber in dieser Seminararbeit nicht behandelt wird.
+\ac{WSDL} und damit auch \ac{SAWSDL} sind also ungeeignet um einen RESTful Webservice semantisch zu beschreiben, mit den Veröffentlichungen von Xuan Shi in \cite{xn-sss} und Maleshkova, Kopeck\'{y} und Pedrinaci in \cite{ma-sawslrest} stehen aber zwei Entwürfe zur Verfügung, die eine Lösung für dieses Problem bieten, deren Vorstellung aber in dieser Seminararbeit nicht behandelt wird.
 
 \subsection{\acs{SAWSDL} verwenden}
 
