@@ -1,7 +1,11 @@
 %
-% Fachseminararbeit
+% Fachseminararbeit · Wintersemester 2011/2012 Fachbereich Design Informatik Medien · Hochschule RheinMain Bachelor-Studiengang Medieninformatik
+%
+% Thema: Dynamische Integration von Webservices
+% Untertitel: Konzepte und Standards zur domänenübergreifenden Integration von komplexen Webanwendungen
 %
 % @author: Markus Tacker <m@coderbyheart.de>
+% @link https://github.com/tacker/fachseminar/
 % 
 \documentclass[10pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
@@ -37,14 +41,23 @@
 \setlength{\parindent}{0em}
 
 \bibliographystyle{plain} 
-
 \bibdata{bibliothek}
+
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{hyperref}
+\hypersetup{
+    bookmarks=true,
+    colorlinks=true,
+    linkcolor=MidnightBlue,
+    citecolor=MidnightBlue,
+    urlcolor=MidnightBlue
+}
 
 \input{abkuerzungen}
 
 \begin{document}
 \author{Markus Tacker}
-\title{Konzepte und Standards zur domänenübergreifenden Integration von komplexen Webanwendungen}
+\title{Dynamische Integration von Webservices}
 
 \begin{center}
 
@@ -52,27 +65,21 @@
 
 \bigskip
 
-\begin{huge}Konzepte und Standards 
-\medskip
-zur domänenübergreifenden Integration
-\medskip
-von komplexen Webanwendungen\end{huge}
+\begin{huge}Dynamische Integration von Webservices\end{huge}
+
+\begin{small}Konzepte und Standards zur domänenübergreifenden\\Integration von komplexen Webanwendungen\end{small}
 
 \bigskip
 
 \begin{large}Markus Tacker\end{large}
 
-\begin{small}\texttt{https://github.com/tacker/fachseminar/}\end{small}
+\begin{small}\url{https://github.com/tacker/fachseminar/}\end{small}
 
 \today
 
 \end{center}
 
 \input{abstract}
-
-\pagebreak
-
-\tableofcontents
 
 \section{Einleitung}
 \label{l:einleitung}
@@ -90,10 +97,6 @@ von komplexen Webanwendungen\end{huge}
 \label{l:fazit}
 \input{fazit}
 
-\pagebreak
-
 \bibliography{bibliothek}
-
-\input{listings}
 
 \end{document}
