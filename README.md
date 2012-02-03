@@ -1,7 +1,7 @@
 # Fachseminararbeit
 
 Wintersemester 2011/2012  
-Fachbereich Design Informatik Medien · [Hochschule RheinMain](http://www.hs-rm.de/)  
+[Fachbereich Design Informatik Medien](http://www.hs-rm.de/dcsm) · [Hochschule RheinMain](http://www.hs-rm.de/)  
 [Bachelor-Studiengang Medieninformatik](http://www.hs-rm.de/medieninformatik)
 
 ## Thema
