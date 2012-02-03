@@ -24,4 +24,4 @@ This work is licensed under a [Creative Commons Attribution-NonCommercial-ShareA
 
 ## Download
 
-[Dynamische Integration von Webservices - Markus Tacker - 2012-02-03.pdf](https://github.com/tacker/fachseminar/blob/master/Dynamische%20Integration%20von%20Webservices%20-%20Markus%20Tacker%20-%202012-02-03.pdf)
+[Dynamische Integration von Webservices - Markus Tacker - 2012-02-03.pdf](https://github.com/tacker/fachseminar/raw/master/Dynamische%20Integration%20von%20Webservices%20-%20Markus%20Tacker%20-%202012-02-03.pdf)
